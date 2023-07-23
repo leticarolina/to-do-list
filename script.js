@@ -31,19 +31,34 @@ todos.forEach((element) => {
   showTodo(element);
 });
 
+//marking as done
 list.addEventListener("change", (e) => {
   if (!e.target.matches("[data-list-item-checkbox]")) return; //code says if where i clicked is not [data-list-item-checkbox] then nervermind
   const parentOfTodo = e.target.closest(".list-item"); //getting the parennt of clicked checkbox
   const todoId = parentOfTodo.dataset.todoId; //setting the ID
-  const todo = todos.find((t) => {
+  console.log(todoId);
+  let todo = todos.find((t) => {
     t.id === todoId;
   });
-  todos.complete = e.target.checked;
+  todo.complete = e.target.checked;
+  saveTodo();
+});
+
+//delete to do
+list.addEventListener("click", (e) => {
+  if (!e.target.matches("[data-button-delete]")) return;
+  const parentOfTodo = e.target.closest(".list-item");
+  const todoId = parentOfTodo.dataset.todoId; //getting the id of the deleted todo(?)
+  //remove the todo from the screen and the list
+  parentOfTodo.remove();
+  let newArray = todos.filter((t) => {
+    t.id !== todoId;
+  }); //filter the todo ID'S that are NOT equal to the one that was delete
   saveTodo();
 });
 
 //TODO
-//add to do - user will type in the input and click add to do button. this should add the Todo to the list
+//1. add to do - user will type in the input and click add to do button. this should add the Todo to the list
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const todoName = input.value;
@@ -60,13 +75,18 @@ form.addEventListener("submit", (e) => {
 });
 
 function showTodo(newTodo) {
-  const templateClone = template.content.cloneNode(true); //this will get all the code inside our template
-  const listItem = templateClone.querySelector(".list-item");
-  listItem.dataset.todoId = newTodo.id; // .dataset.todoId setting a data parameter inside the <li> html with name data-todo-id
-  const newTask = templateClone.querySelector("[data-list-item-text]");
-  newTask.innerText = newTodo.name;
-  //complete
+  const templateClone = template.content.cloneNode(true); //this will get all the code inside the html <template>
+  const listItem = templateClone.querySelector(".list-item"); //selecting list-item from <template> element
+  listItem.dataset.todoId = newTodo.id; // .dataset.todoId setting a data parameter inside the <li> html with name data-todo-id the value will refer to the new Date()
+  const textElement = templateClone.querySelector("[data-list-item-text]");
+  textElement.innerText = newTodo.name;
+  //checkmark a todo
   const checkbox = templateClone.querySelector("[data-list-item-checkbox]");
+  // if (checkbox.checked) {
+  //   newTodo.complete = true;
+  // } else {
+  //   newTodo.complete = false;
+  // };
   checkbox.checked = newTodo.complete;
   list.appendChild(templateClone);
 }
@@ -74,23 +94,10 @@ function showTodo(newTodo) {
 //load todo
 function loadTodo() {
   const storageString = localStorage.getItem(TODOS_STORAGE_KEY);
-  return JSON.parse(storageString) || []; //JSON.parse takes a string and convert to js object,array etc
+  return JSON.parse(storageString) || []; //JSON.parse takes a string and convert to js object,array etc or [] means if no storage return an empty array
 }
 
 //save todo
 function saveTodo() {
-  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos)); //todos is an array annd the value of storage has to be string, so need to stringfy the value
+  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos)); //todos is an array and the value of storage has to be string, so need to stringfy the value
 }
-
-//delete to do
-list.addEventListener("click", (e) => {
-  if (!e.target.matches("[data-button-delete]")) return;
-  const parentOfTodo = e.target.closest(".list-item");
-  const todoId = parentOfTodo.dataset.todoId;
-  //remove the todo from the screen and the list
-  parentOfTodo.remove();
-  let newArray = todos.filter((t) => {
-    t.id !== todoId;
-  });
-  saveTodo();
-});
