@@ -50,3 +50,10 @@ button {
   width: 100px;
 
 }
+
+.list-item {
+display: flex;
+align-content: center;
+padding-left: 200px;
+
+}

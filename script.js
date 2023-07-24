@@ -19,85 +19,152 @@
 //   });
 // });
 
-const form = document.querySelector("form");
+// const form = document.querySelector("form");
+// const input = document.querySelector("#todo-input");
+// const list = document.querySelector("#list");
+// const template = document.getElementsByTagName("template")[0]; //referring access to the code inside the html element "template"
+// const STORAGE_KEY_PREFIX = "TODO_LIST"; //recommeded to create a prefix key to save data into the local storage, Its a prefix we add to every key we will save to the local storage
+// const TODOS_STORAGE_KEY = `${STORAGE_KEY_PREFIX}-todos`;
+// let todos = loadTodo();
+
+// todos.forEach((element) => {
+//   showTodo(element);
+// });
+
+// //marking as done
+// list.addEventListener("change", (e) => {
+//   if (!e.target.matches("[data-list-item-checkbox]")) return; //code says if where i clicked is not [data-list-item-checkbox] then nervermind
+//   const parentOfTodo = e.target.closest(".list-item"); //getting the parennt of clicked checkbox
+//   const todoId = parentOfTodo.dataset.todoId; //setting the ID
+//   console.log(todoId);
+//   let todo = todos.find((t) => {
+//     t.id === todoId;
+//   });
+//   todo.complete = e.target.checked;
+//   saveTodo();
+// });
+
+// //delete to do
+// list.addEventListener("click", (e) => {
+//   if (!e.target.matches("[data-button-delete]")) return;
+//   const parentOfTodo = e.target.closest(".list-item");
+//   const todoId = parentOfTodo.dataset.todoId; //getting the id of the deleted todo(?)
+//   //remove the todo from the screen and the list
+//   parentOfTodo.remove();
+//   let newArray = todos.filter((t) => {
+//     t.id !== todoId;
+//   }); //filter the todo ID'S that are NOT equal to the one that was delete
+//   saveTodo();
+// });
+
+// //TODO
+// //1. add to do - user will type in the input and click add to do button. this should add the Todo to the list
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const todoName = input.value;
+//   if (todoName === "") return; //this will check if input is empty will return function and not run anything under
+//   const newTodo = {
+//     name: todoName,
+//     complete: false,
+//     id: new Date().valueOf().toString(), //making each new todo unique by giving a milliseconds number
+//   };
+//   todos.push(newTodo);
+//   showTodo(newTodo);
+//   saveTodo();
+//   input.value = "";
+// });
+
+// function showTodo(newTodo) {
+//   const templateClone = template.content.cloneNode(true); //this will get all the code inside the html <template>
+//   const listItem = templateClone.querySelector(".list-item"); //selecting list-item from <template> element
+//   listItem.dataset.todoId = newTodo.id; // .dataset.todoId setting a data parameter inside the <li> html with name data-todo-id the value will refer to the new Date()
+//   const textElement = templateClone.querySelector("[data-list-item-text]");
+//   textElement.innerText = newTodo.name;
+//   //checkmark a todo
+//   const checkbox = templateClone.querySelector("[data-list-item-checkbox]");
+//   // if (checkbox.checked) {
+//   //   newTodo.complete = true;
+//   // } else {
+//   //   newTodo.complete = false;
+//   // };
+//   checkbox.checked = newTodo.complete;
+//   list.appendChild(templateClone);
+// }
+
+// //load todo
+// function loadTodo() {
+//   const storageString = localStorage.getItem(TODOS_STORAGE_KEY);
+//   return JSON.parse(storageString) || []; //JSON.parse takes a string and convert to js object,array etc or [] means if no storage return an empty array
+// }
+
+// //save todo
+// function saveTodo() {
+//   localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos)); //todos is an array and the value of storage has to be string, so need to stringfy the value
+// }
+//-----------------------------------------------------------------------------
+//second code todo
+//add, mark complete , delete , save todo, render on the page saved
+const form = document.querySelector("#new-todo-form");
 const input = document.querySelector("#todo-input");
 const list = document.querySelector("#list");
-const template = document.getElementsByTagName("template")[0]; //referring access to the code inside the html element "template"
-const STORAGE_KEY_PREFIX = "TODO_LIST"; //recommeded to create a prefix key to save data into the local storage, Its a prefix we add to every key we will save to the local storage
+const template = document.getElementsByTagName("template")[0];
+const STORAGE_KEY_PREFIX = "TODO_LIST";
 const TODOS_STORAGE_KEY = `${STORAGE_KEY_PREFIX}-todos`;
-let todos = loadTodo();
-
-todos.forEach((element) => {
-  showTodo(element);
+let todos = showSavedTodo();
+todos.forEach((e) => {
+  renderTodo(e);
 });
 
-//marking as done
-list.addEventListener("change", (e) => {
-  if (!e.target.matches("[data-list-item-checkbox]")) return; //code says if where i clicked is not [data-list-item-checkbox] then nervermind
-  const parentOfTodo = e.target.closest(".list-item"); //getting the parennt of clicked checkbox
-  const todoId = parentOfTodo.dataset.todoId; //setting the ID
-  console.log(todoId);
-  let todo = todos.find((t) => {
-    t.id === todoId;
-  });
-  todo.complete = e.target.checked;
-  saveTodo();
-});
-
-//delete to do
-list.addEventListener("click", (e) => {
-  if (!e.target.matches("[data-button-delete]")) return;
-  const parentOfTodo = e.target.closest(".list-item");
-  const todoId = parentOfTodo.dataset.todoId; //getting the id of the deleted todo(?)
-  //remove the todo from the screen and the list
-  parentOfTodo.remove();
-  let newArray = todos.filter((t) => {
-    t.id !== todoId;
-  }); //filter the todo ID'S that are NOT equal to the one that was delete
-  saveTodo();
-});
-
-//TODO
-//1. add to do - user will type in the input and click add to do button. this should add the Todo to the list
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const todoName = input.value;
-  if (todoName === "") return; //this will check if input is empty will return function and not run anything under
+  const newTodoText = input.value;
+  if (newTodoText === "") return;
+
   const newTodo = {
-    name: todoName,
+    name: newTodoText,
     complete: false,
     id: new Date().valueOf().toString(), //making each new todo unique by giving a milliseconds number
   };
   todos.push(newTodo);
-  showTodo(newTodo);
+  renderTodo(newTodo);
   saveTodo();
   input.value = "";
 });
 
-function showTodo(newTodo) {
-  const templateClone = template.content.cloneNode(true); //this will get all the code inside the html <template>
-  const listItem = templateClone.querySelector(".list-item"); //selecting list-item from <template> element
-  listItem.dataset.todoId = newTodo.id; // .dataset.todoId setting a data parameter inside the <li> html with name data-todo-id the value will refer to the new Date()
+//show, add
+function renderTodo(newTodo) {
+  const templateClone = template.content.cloneNode(true);
+  const listItem = templateClone.querySelector(".list-item");
   const textElement = templateClone.querySelector("[data-list-item-text]");
-  textElement.innerText = newTodo.name;
-  //checkmark a todo
   const checkbox = templateClone.querySelector("[data-list-item-checkbox]");
-  // if (checkbox.checked) {
-  //   newTodo.complete = true;
-  // } else {
-  //   newTodo.complete = false;
-  // };
-  checkbox.checked = newTodo.complete;
+  textElement.innerText = newTodo.name;
+  checkbox.addEventListener("change", () => {
+    newTodo.complete = !newTodo.complete;
+    saveTodo();
+  });
+  if (newTodo.complete) {
+    checkbox.checked = true;
+  }
   list.appendChild(templateClone);
 }
 
-//load todo
-function loadTodo() {
-  const storageString = localStorage.getItem(TODOS_STORAGE_KEY);
-  return JSON.parse(storageString) || []; //JSON.parse takes a string and convert to js object,array etc or [] means if no storage return an empty array
+//delete
+list.addEventListener("click", (e) => {
+  if (!e.target.matches("[data-button-delete]")) return;
+  const parent = e.target.closest(".list-item");
+  const todoId = parent.dataset.todoId;
+  parent.remove();
+  todos = todos.filter((todos) => todos.id !== todoId);
+  saveTodo();
+});
+
+//show saved todos
+function showSavedTodo() {
+  const savedTodos = localStorage.getItem(TODOS_STORAGE_KEY);
+  return JSON.parse(savedTodos) || [];
 }
 
-//save todo
+//save
 function saveTodo() {
-  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos)); //todos is an array and the value of storage has to be string, so need to stringfy the value
+  localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
 }
