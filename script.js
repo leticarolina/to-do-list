@@ -102,12 +102,14 @@
 //   localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos)); //todos is an array and the value of storage has to be string, so need to stringfy the value
 // }
 //-----------------------------------------------------------------------------
+
 //second code todo
 //add, mark complete , delete , save todo, render on the page saved
 const form = document.querySelector("#new-todo-form");
 const input = document.querySelector("#todo-input");
 const list = document.querySelector("#list");
 const template = document.getElementsByTagName("template")[0];
+console.log(template);
 const STORAGE_KEY_PREFIX = "TODO_LIST";
 const TODOS_STORAGE_KEY = `${STORAGE_KEY_PREFIX}-todos`;
 let todos = showSavedTodo();
@@ -123,7 +125,7 @@ form.addEventListener("submit", (e) => {
   const newTodo = {
     name: newTodoText,
     complete: false,
-    id: new Date().valueOf().toString(), //making each new todo unique by giving a milliseconds number
+    id: crypto.randomUUID(), //making each new todo unique by giving a milliseconds number
   };
   todos.push(newTodo);
   renderTodo(newTodo);
@@ -152,9 +154,14 @@ function renderTodo(newTodo) {
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
   const parent = e.target.closest(".list-item");
-  const todoId = parent.dataset.todoId;
+  // Get the existing data from localStorage
+  const existingTodos = JSON.parse(localStorage.getItem(TODOS_STORAGE_KEY));
+  //getting todo innertext so I can reference it to remove from localStorage
+  const todoText = parent.querySelector(".data-text").innerText;
+  //making the new todo list remove the object that matches todoText
+  todos = existingTodos.filter((todo) => todo.name != todoText);
   parent.remove();
-  todos = todos.filter((todos) => todos.id !== todoId);
+  // Save the modified data back to localStorage
   saveTodo();
 });
 
