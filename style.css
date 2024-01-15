@@ -1,11 +1,10 @@
-
-#new-todo-form {
+/* #new-todo-form {
   display: flex;
   flex-direction: column;
   padding: 20px 100px;
-  /* width: 400px; */
-}
-
+ 
+} */
+/* 
 #new-todo-form > * {
   margin: 0.2rem;
 }
@@ -56,4 +55,9 @@ display: flex;
 align-content: center;
 padding-left: 200px;
 
+} */
+
+.list-item-label:hover,
+[data-list-item-checkbox]:hover {
+  cursor: pointer;
 }
