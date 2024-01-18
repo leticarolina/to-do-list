@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- javascript -->
     <script defer src="/script.js"></script>
-    <title>JavaScript Test</title>
+    <script type="text/javascript" src="quote.js"></script>
+    <title>Todo App</title>
     <!-- tailwind scrpit -->
     <link href="/src/output.css" rel="stylesheet" />
   </head>
@@ -14,31 +16,33 @@
       <!-- date and quote container -->
       <div class="grid lg:grid-rows-2 mb-3">
         <!-- GREETINGS CONTAINER -->
-        <div class="flex flex-col justify-between">
+        <!-- <div class="flex flex-col justify-between md:justify-center">
           <div
             class="grid grid-cols-2 mt-10 mr-4 items-center ml-auto lg:m-auto mb-6"
           >
             <h4 class="font-bold text-6xl grid-cols-1 ml-auto mr-2">23</h4>
             <div class="grid-cols-1">
               <h2 class="">Thursday</h2>
-              <h4 class="uppercase text-xl">November</h4>
+              <h4 class="uppercase text-xl md:text-cyan-400">November</h4>
             </div>
           </div>
-          <h1 class="mb-10 text-2xl text-center">Good Afternoon!</h1>
-        </div>
+          
+        </div> -->
+        <h1 class="mt-4 mb-6 text-2xl text-center">Good Afternoon!</h1>
         <!-- QUOTE CONTAINER -->
         <div
           class="quote-container col-span-1 border border-gray-400 rounded-xl text-center p-2 h-fit lg:h-80 shadow-lg shadow-slate-300 bg-colorful"
         >
           <!-- <h2>Quote of the Day:</h2> -->
-          <div class="quote-text mt-4 text-2xl text-gray-800">
-            "Tell your heart that the fear of suffering is worse than the
-            suffering itself. "
-          </div>
-          <div class="author italic pt-4 text-gray-500">Paulo Coelho</div>
+          <div
+            id="quote"
+            class="quote-text mt-4 py-3 text-xl text-gray-800"
+          ></div>
+          <div id="author" class="author italic pt-4 text-gray-500"></div>
           <div>
             <button
-              class="float-right mr-2 mb-2 bg-slate-50 text-cyan-500 py-1 px-3 rounded-md text-sm hover:text-slate-50 hover:bg-cyan-500"
+              id="twitter"
+              class="twitter-button float-right mr-2 mb-2 bg-slate-50 text-cyan-500 py-1 px-3 rounded-md text-sm hover:text-slate-50 hover:bg-cyan-500"
             >
               tweet!
             </button>
@@ -48,50 +52,29 @@
 
       <!-- todos div -->
       <div
-        class="grid grid-rows-4 border rounded-lg border-gray-400 p-4 shadow-lg shadow-gray-600"
+        class="grid grid-rows-2 border rounded-lg border-gray-400 p-4 shadow-lg shadow-gray-600"
       >
-        <form id="new-todo-form row-span-1 ">
+        <form id="new-todo-form" class="row-span-1 mb-4">
           <!-- <label for="todo-input" class="text-green-400"> Add </label> -->
           <div class="flex h-10">
             <input
               type="text"
               id="todo-input"
-              class="pl-4 focus:w-4/6 w-full focus:outline-none mr-2 border shadow-sm focus:shadow-lg rounded-xl shadow-gray-400"
+              class="pl-4 w-4/6 focus:outline-none mr-2 border shadow-sm focus:shadow-lg rounded-xl shadow-gray-400"
               placeholder="Write your todo..."
             />
 
-            <button type="submit" class="bg-gray-400 w-2/6 rounded-xl">
+            <button
+              type="submit"
+              class="w-2/6 bg-slate-50 text-cyan-600 rounded-lg border-2 border-cyan-600"
+            >
               Add Todo
             </button>
           </div>
         </form>
-        <div
-          class="mb-4 row-span-3 border rounded-lg border-gray-300 py-2 px-4"
-        >
-          <p class="mb-2 mt-1 font-medium text-lg">Todo List:</p>
-          <ul>
-            <!-- <template id="list-item-template"> -->
-            <li
-              class="list-item-js flex justify-between items-center mb-1"
-              id=""
-            >
-              <label class="list-item-label">
-                <input
-                  type="checkbox"
-                  data-list-item-checkbox
-                  class="appearance-none w-4 h-4 border rounded-sm border-gray-400 mr-3 checked:bg-green-400 bg-red-200"
-                />
-                <span data-list-item-text class="data-text align-text-bottom">
-                  clean the kitchen
-                </span>
-              </label>
-              <button data-button-delete class="hover:bg-gray-300 rounded-full">
-                <img src="/public/images/close.svg" alt="close" class="w-5" />
-              </button>
-            </li>
-
-            <!-- </template> -->
-          </ul>
+        <div class="row-span-1 border rounded-lg border-gray-300 py-2 px-4">
+          <p class="mb-2 font-medium text-lg">Todo List:</p>
+          <ul id="list"></ul>
         </div>
         <!-- <div class="row-span-2 border rounded-lg border-gray-300"></div> -->
       </div>
@@ -102,13 +85,37 @@
       <button type="submit">Add Todo</button>
     </form> -->
 
-    <template id="list-item-template">
+    <!-- <template id="list-item-template">
       <li class="list-item" id="">
         <label class="list-item-label">
           <input type="checkbox" data-list-item-checkbox />
           <span data-list-item-text class="data-text"> </span>
         </label>
         <button data-button-delete>Delete</button>
+      </li>
+    </template> -->
+    <template id="list-item-template">
+      <li class="list-item-js flex justify-between items-center mb-1" id="">
+        <label class="list-item-label">
+          <input
+            type="checkbox"
+            data-list-item-checkbox
+            class="appearance-none w-4 h-4 border rounded-sm border-gray-400 mr-3 checked:bg-green-400 bg-red-200 group-focus-within:line-through peer"
+          />
+          <span
+            data-list-item-text
+            class="data-text align-text-bottom peer peer-checked:line-through peer-checked:text-gray-500"
+          >
+          </span>
+        </label>
+        <button class="hover:bg-gray-300 rounded-full">
+          <img
+            data-button-delete
+            src="/public/images/close.svg"
+            alt="close"
+            class="w-5"
+          />
+        </button>
       </li>
     </template>
     <!-- <ul id="list"></ul> -->

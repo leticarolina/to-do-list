@@ -56,8 +56,3 @@ align-content: center;
 padding-left: 200px;
 
 } */
-
-.list-item-label:hover,
-[data-list-item-checkbox]:hover {
-  cursor: pointer;
-}

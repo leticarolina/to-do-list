@@ -1086,6 +1086,39 @@ video {
   outline-offset: 2px;
 }
 
+.group:target .group-target\:line-through {
+  text-decoration-line: line-through;
+}
+
+.group:checked .group-checked\:line-through {
+  text-decoration-line: line-through;
+}
+
+.group:focus-within .group-focus-within\:line-through {
+  text-decoration-line: line-through;
+}
+
+.group:focus .group-focus\:line-through {
+  text-decoration-line: line-through;
+}
+
+.group:active .group-active\:line-through {
+  text-decoration-line: line-through;
+}
+
+.peer:checked ~ .peer-checked\:text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.peer:checked ~ .peer-checked\:line-through {
+  text-decoration-line: line-through;
+}
+
+.group[aria-selected="true"] .group-aria-selected\:line-through {
+  text-decoration-line: line-through;
+}
+
 @media (min-width: 1024px) {
   .lg\:m-auto {
     margin: auto;

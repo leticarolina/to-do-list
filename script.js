@@ -113,6 +113,31 @@ console.log(template);
 const STORAGE_KEY_PREFIX = "TODO_LIST";
 const TODOS_STORAGE_KEY = `${STORAGE_KEY_PREFIX}-todos`;
 let todos = showSavedTodo();
+// quote
+const quoteText = document.getElementById("quote");
+const authorText = document.getElementById("author");
+const twitterButton = document.getElementById("twitter");
+
+function newQuote() {
+  //code to pick a random quote from api localQuotes
+  const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+  authorText.textContent = quote.author; //textContent is to pass in a string what is shown on the element
+  if (quote.text.length > 140) {
+    quoteText.classList.add("long-quote");
+    //classList is to target a CSS declaration block
+    //.add is to add the declaration and .remove to remove
+  } else {
+    quoteText.classList.remove("long-quote");
+  }
+  quoteText.textContent = quote.text; //quote.text is to target the class in the html code
+}
+newQuote();
+
+twitterButton.addEventListener("click", () => {
+  const TweetUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+  window.open(TweetUrl, "_blank");
+});
+
 todos.forEach((e) => {
   renderTodo(e);
 });
@@ -133,10 +158,11 @@ form.addEventListener("submit", (e) => {
   input.value = "";
 });
 
-//show, add
+//show or add the todos
 function renderTodo(newTodo) {
   const templateClone = template.content.cloneNode(true);
-  const listItem = templateClone.querySelector(".list-item");
+  console.log(templateClone);
+  const listItem = templateClone.querySelector(".list-item-js");
   const textElement = templateClone.querySelector("[data-list-item-text]");
   const checkbox = templateClone.querySelector("[data-list-item-checkbox]");
   textElement.innerText = newTodo.name;
@@ -153,7 +179,7 @@ function renderTodo(newTodo) {
 //delete
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
-  const parent = e.target.closest(".list-item");
+  const parent = e.target.closest(".list-item-js");
   // Get the existing data from localStorage
   const existingTodos = JSON.parse(localStorage.getItem(TODOS_STORAGE_KEY));
   //getting todo innertext so I can reference it to remove from localStorage
