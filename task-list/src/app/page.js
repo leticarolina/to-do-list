@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { QuoteContainer } from "./components/QuoteConteiner";
 
 export default function Home() {
   return (
@@ -20,19 +21,7 @@ export default function Home() {
       </div> --> */}
 
         {/* <!-- QUOTE CONTAINER --> */}
-        <div class="quote-container col-span-1 rounded-xl text-center p-2 h-fit lg:h-80 shadow-slate-300 relative">
-          {/* <!-- <h2>Quote of the Day:</h2> --> */}
-          <div id="quote" class="quote-text py-1 text-sm text-gray-800"></div>
-          <div id="author" class="author italic pt-4 text-gray-500"></div>
-          <div>
-            <button
-              id="twitter"
-              class="twitter-button text-cyan-500 text-sm hover:text-slate-50 absolute right-0"
-            >
-              tweet!
-            </button>
-          </div>
-        </div>
+        <QuoteContainer />
       </div>
 
       {/* <!-- todos div --> */}
