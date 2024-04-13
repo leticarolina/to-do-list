@@ -3,73 +3,20 @@ import { QuoteContainer } from "./components/QuoteConteiner";
 
 export default function Home() {
   return (
-    <div class="mx-4 h-screen">
-      {/* <!-- date and quote container --> */}
-      <div class="grid lg:grid-rows-2 mb-3">
-        {/* <!-- GREETINGS CONTAINER -->
-      <!-- <div class="flex flex-col justify-between md:justify-center">
-        <div
-          class="grid grid-cols-2 mt-10 mr-4 items-center ml-auto lg:m-auto mb-6"
-        >
-          <h4 class="font-bold text-6xl grid-cols-1 ml-auto mr-2">23</h4>
-          <div class="grid-cols-1">
-            <h2 class="">Thursday</h2>
-            <h4 class="uppercase text-xl md:text-cyan-400">November</h4>
-          </div>
-        </div>
-        
-      </div> --> */}
-
-        {/* <!-- QUOTE CONTAINER --> */}
+    <div className="mx-4 h-screen">
+      {/* <!-- QUOTE CONTAINER --> */}
+      <div className="mb-3">
         <QuoteContainer />
       </div>
 
-      {/* <!-- todos div --> */}
-      <div>
-        <div class="font-semibold text-4xl text-zinc-400 flex justify-between px-3">
-          Monday
-          <img
-            src="/public/images/arrow.svg"
-            alt="arrow down"
-            class="h-10 rotate-180"
-          />
-        </div>
-        <div class="border border-gray-400 p-4 relative min-w-60 mt-2">
-          <form id="new-todo-form" class="mb-4">
-            {/* <!-- <label for="todo-input" class="text-green-400"> Add </label> --> */}
-            <div class="flex relative h-11 w-full min-w-[200px]">
-              {/* <!-- <input
-              type="text"
-              id="todo-input"
-              class="pl-4 focus:outline-none mr-2 border-b-2 shadow-sm focus:shadow-lg shadow-gray-100 bg-transparent"
-              placeholder="Write todo..."
-            /> --> */}
-              <div>
-                <input
-                  id="todo-input"
-                  placeholder="Write todo here..."
-                  class="peer h-full w-full border-b border-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
-                />
-                <label class="after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                  write task...
-                </label>
-              </div>
-              <button
-                type="submit"
-                class="bg-none text-gray-600 rounded-lg border-[1px] border-gray-600 w-24 mb-2 absolute right-0"
-              >
-                Add Todo
-              </button>
-            </div>
-          </form>
-          <div class="py-2 px-4">
-            {/* <!-- <p class="mb-2 font-medium text-lg">Todo List:</p> --> */}
-            <ul id="list"></ul>
-          </div>
-          {/* <!-- <div class="row-span-2 border rounded-lg border-gray-300"></div> --> */}
-        </div>
+      {/* <!-- ALL DAYS QUOTE CONTAINER --> */}
+
+      <div className="bg-pink-200 mt-10 flex-col space-y-8 ">
+        <div className="h-96 w-64 bg-blue-300 "></div>
+        <div className="h-96 w-64 bg-blue-300 "></div>
       </div>
     </div>
+
     // <!-- <form id="new-todo-form">
     //   <label for="todo-input" class="text-green-400"> Todo List</label>
     //   <input type="text" id="todo-input" />

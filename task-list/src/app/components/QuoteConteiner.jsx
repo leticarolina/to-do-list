@@ -5,31 +5,38 @@ import { localQuotes } from "../quote";
 
 export function QuoteContainer() {
   console.log(localQuotes);
-  const individual =
-    localQuotes[Math.floor(Math.random() * localQuotes.length)];
-  const [quote, setQuote] = useState(individual);
+
+  const [quote, setQuote] = useState([]);
+  const button = (
+    <button
+      onClick={TweetQuote}
+      id="twitter"
+      className="twitter-button text-gray-200 text-sm hover:text-cyan-300"
+    >
+      tweet quote!
+    </button>
+  );
 
   useEffect(() => {
     setQuote(localQuotes[Math.floor(Math.random() * localQuotes.length)]);
+    // this code above will return an individual object, so that means to access it has to be quote.objectKey
   }, []);
 
+  function TweetQuote() {
+    const TweetUrl = `https://twitter.com/intent/tweet?text=${quote.text} - ${quote.author}`;
+    window.open(TweetUrl, "_blank");
+  }
+
   return (
-    <div className="quote-container col-span-1 rounded-xl text-center p-2 h-fit lg:h-80 shadow-slate-300 relative">
-      {/* <!-- <h2>Quote of the Day:</h2> --> */}
-      <div id="quote" className="quote-text py-1 text-sm text-gray-800">
-        {quote}
+    <div className="quote-container col-span-1 text-center  h-fit lg:h-80 shadow-slate-300 relative">
+      <div id="quote" className="quote-text pt-8 text-md text-gray-800">
+        {quote.text}
       </div>
-      <div id="author" className="author italic pt-4 text-gray-500">
-        author
+      <div id="author" className="author italic pt-3 text-gray-500 text-sm">
+        {quote.author}
       </div>
-      <div>
-        <button
-          id="twitter"
-          className="twitter-button text-cyan-500 text-sm hover:text-slate-50 absolute right-0"
-        >
-          tweet!
-        </button>
-      </div>
+
+      {quote.text && button}
     </div>
   );
 }
