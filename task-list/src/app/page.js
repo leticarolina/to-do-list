@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { QuoteContainer } from "./components/QuoteConteiner";
-import { WeekDay } from "./components/WeekDay";
+import { WeekDayCard } from "./components/WeekDayCard";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       {/* <!-- ALL DAYS QUOTE CONTAINER --> */}
 
       <div className="bg-pink-200 mt-10 flex-col space-y-8 ">
-        <WeekDay day="Monday" />
+        <WeekDayCard day="Monday" />
       </div>
     </div>
 
