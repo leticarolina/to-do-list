@@ -1,12 +1,19 @@
 import Image from "next/image";
 
-export function IndividualTask({ task, deleteTask, id, toogleTask }) {
+export function IndividualTask({
+  task,
+  deleteTask,
+  id,
+  toogleTask,
+  completed,
+}) {
   return (
     <div>
       <li className="" id="list">
         <label>
           <input
             type="checkbox"
+            checked={completed}
             onClick={() => {
               toogleTask(id);
             }}

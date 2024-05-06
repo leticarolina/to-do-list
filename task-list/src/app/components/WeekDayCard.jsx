@@ -37,6 +37,7 @@ export function WeekDayCard({ day, week }) {
       });
     });
   }
+
   return (
     <div className="h-96 w-64 bg-blue-300 ">
       <h1>{day}</h1>
