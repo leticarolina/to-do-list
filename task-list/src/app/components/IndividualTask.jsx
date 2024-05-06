@@ -14,8 +14,8 @@ export function IndividualTask({
           <input
             type="checkbox"
             checked={completed}
-            onClick={() => {
-              toogleTask(id);
+            onChange={(e) => {
+              toogleTask(id, e.target.checked);
             }}
           />
           {task}
