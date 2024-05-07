@@ -1,23 +1,28 @@
 import Image from "next/image";
-
+import { useState } from "react";
 export function IndividualTask({
   task,
   deleteTask,
+  ToggleTask,
   id,
-  toogleTask,
+  isCompleted,
   completed,
 }) {
+  const [isCompleted, setIsCompleted] = useState(completed);
+
+  function ToggleTask() {
+    setIsCompleted(!isCompleted); // Toggle completed state
+  }
+
   return (
     <div>
       <li className="" id="list">
-        <label>
-          <input
-            type="checkbox"
-            checked={completed}
-            onChange={(e) => {
-              toogleTask(id, e.target.checked);
-            }}
-          />
+        <label
+          onClick={() => {
+            ToggleTask();
+          }}
+          className={isCompleted ? "line-through text-gray-500" : ""}
+        >
           {task}
         </label>
         <button
