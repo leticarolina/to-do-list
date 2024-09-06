@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { IndividualTask } from "./IndividualTask";
 
-export function WeekDayCard({ day, week }) {
+export function ToDoCard({ day, week }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
@@ -20,16 +20,16 @@ export function WeekDayCard({ day, week }) {
     setNewTask("");
   }
 
-  // function toogleTask(id, completed) {
-  //   setTasks((currentTasks) => {
-  //     return currentTasks.map((t) => {
-  //       if (t.id === id) {
-  //         return { ...t, completed: completed };
-  //       }
-  //       return t;
-  //     });
-  //   });
-  // }
+  function toggleTask(id, completed) {
+    setTasks((currentTasks) => {
+      return currentTasks.map((t) => {
+        if (t.id === id) {
+          return { ...t, completed: completed };
+        }
+        return t;
+      });
+    });
+  }
 
   function deleteTask(id) {
     setTasks((currentTasks) => {
@@ -64,7 +64,8 @@ export function WeekDayCard({ day, week }) {
                   key={task.id}
                   id={task.id}
                   task={task.name}
-                  ToggleTask={ToggleTask}
+                  completed={task.completed}
+                  toggleTask={toggleTask}
                   deleteTask={deleteTask}
                 />
               );

@@ -3,25 +3,33 @@ import { useState } from "react";
 export function IndividualTask({
   task,
   deleteTask,
-  ToggleTask,
+  toggleTask,
   id,
   isCompleted,
   completed,
 }) {
-  const [isCompleted, setIsCompleted] = useState(completed);
+  // let [isCompleted, setIsCompleted] = useState(completed);
 
-  function ToggleTask() {
-    setIsCompleted(!isCompleted); // Toggle completed state
-  }
+  // function ToggleTask() {
+  //   setIsCompleted(!isCompleted); // Toggle completed state
+  // }
 
   return (
     <div>
       <li className="" id="list">
+        <input
+          type="checkbox"
+          checked={completed}
+          onChange={() => toggleTask(id)}
+
+          // type="checkbox"
+          // onClick={() => {
+          //   ToggleTask();
+          // }}
+          // className={isCompleted ? "line-through text-gray-500" : ""}
+        />
         <label
-          onClick={() => {
-            ToggleTask();
-          }}
-          className={isCompleted ? "line-through text-gray-500" : ""}
+          className={completed ? "line-through text-gray-500 ml-2" : "ml-2"}
         >
           {task}
         </label>
