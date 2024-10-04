@@ -12,7 +12,10 @@ export default function Home() {
 
       {/* <!-- ALL DAYS QUOTE CONTAINER --> */}
 
-      <div className="bg-pink-200 mt-10  space-y-8 ">
+      <div className=" mt-10  space-y-8 ">
+        <div className="center ">
+          MINIMA<strong>LIST</strong>
+        </div>
         <ToDoCard day="Monday" />
       </div>
     </div>

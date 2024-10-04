@@ -5,15 +5,8 @@ export function IndividualTask({
   deleteTask,
   toggleTask,
   id,
-  isCompleted,
   completed,
 }) {
-  // let [isCompleted, setIsCompleted] = useState(completed);
-
-  // function ToggleTask() {
-  //   setIsCompleted(!isCompleted); // Toggle completed state
-  // }
-
   return (
     <div>
       <li className="" id="list">
@@ -21,12 +14,6 @@ export function IndividualTask({
           type="checkbox"
           checked={completed}
           onChange={() => toggleTask(id)}
-
-          // type="checkbox"
-          // onClick={() => {
-          //   ToggleTask();
-          // }}
-          // className={isCompleted ? "line-through text-gray-500" : ""}
         />
         <label
           className={completed ? "line-through text-gray-500 ml-2" : "ml-2"}

@@ -12,22 +12,48 @@ export function ToDoCard({ day, week }) {
 
     setTasks((currentTasks) => {
       return [
-        ...currentTasks,
         { name: newTask, id: crypto.randomUUID(), completed: false },
+        ...currentTasks,
       ];
     });
     console.log(tasks);
     setNewTask("");
   }
 
-  function toggleTask(id, completed) {
+  // function toggleTask(id) {
+  //   setTasks((currentTasks) => {
+
+  //     return currentTasks.map((t) => {
+  //       if (t.id === id) {
+  //         return { ...t, completed: !t.completed };
+  //       }
+  //       return t;
+  //     });
+  //   });
+  // }
+  function toggleTask(id) {
     setTasks((currentTasks) => {
-      return currentTasks.map((t) => {
-        if (t.id === id) {
-          return { ...t, completed: completed };
-        }
-        return t;
-      });
+      // Find the task being toggled
+      const taskToToggle = currentTasks.find((t) => t.id === id);
+
+      // If the task was found
+      if (taskToToggle) {
+        const isCompleted = taskToToggle.completed; // Get current completed status
+
+        // Filter out the task from the current tasks
+        const filteredTasks = currentTasks.filter((t) => t.id !== id);
+
+        // Toggle the task's completed status
+        const updatedTask = { ...taskToToggle, completed: !isCompleted };
+
+        // If the task is now completed, add it to the end
+        return isCompleted
+          ? [updatedTask, ...filteredTasks]
+          : [...filteredTasks, updatedTask];
+      }
+
+      // Return the currentTasks if no task was found
+      return currentTasks;
     });
   }
 
@@ -40,7 +66,7 @@ export function ToDoCard({ day, week }) {
   }
 
   return (
-    <div className="h-96 w-64 bg-blue-300 ">
+    <div className=" h-96 w-64 bg-blue-300 ">
       <h1>{day}</h1>
 
       <form id="new-task-form">
