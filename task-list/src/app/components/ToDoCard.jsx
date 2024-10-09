@@ -1,10 +1,23 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IndividualTask } from "./IndividualTask";
 
 export function ToDoCard({ day, week }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+
+  // Load tasks from localStorage when the component mounts
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  // Update localStorage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function AddNewTask(e) {
     e.preventDefault();
@@ -31,19 +44,19 @@ export function ToDoCard({ day, week }) {
   //     });
   //   });
   // }
+
   function toggleTask(id) {
     setTasks((currentTasks) => {
-      // Find the task being toggled
+      // This line searches for the task that matches the provided id. If it exists, it gets stored in taskToToggle.
       const taskToToggle = currentTasks.find((t) => t.id === id);
 
-      // If the task was found
       if (taskToToggle) {
-        const isCompleted = taskToToggle.completed; // Get current completed status
+        const isCompleted = taskToToggle.completed; // check if the task is currently marked as completed.
 
-        // Filter out the task from the current tasks
+        // Filter out, create a new array of tasks that excludes the task being toggled.
         const filteredTasks = currentTasks.filter((t) => t.id !== id);
 
-        // Toggle the task's completed status
+        //create a new task object that has the same properties as taskToToggle, but with its completed status inverted.
         const updatedTask = { ...taskToToggle, completed: !isCompleted };
 
         // If the task is now completed, add it to the end
